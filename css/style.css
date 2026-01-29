@@ -1,0 +1,45 @@
+body {
+  background-color: #FFFFF7;
+}
+
+#wrapper {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.country {
+  pointer-events: all;
+}
+
+.country .label {
+  text-anchor: middle;
+}
+
+circle.renewable {
+  fill: #7FB069;
+}
+
+circle.oilgascoal {
+  fill: none;
+  stroke: #BCB5B2;
+}
+
+circle.hydroelectric {
+  fill: none;
+  stroke: #5EB1B5;
+  stroke-dasharray: 3,1;
+}
+
+circle.nuclear {
+  fill: none;
+  stroke: #F6AE2D;
+  stroke-dasharray: 4,2;
+}
+
+.flourish-popup {
+  pointer-events: none;
+}
+
+.popup-center {
+  opacity: 0;
+}
