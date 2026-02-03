@@ -1,3 +1,25 @@
+function sortAccessor(d) {
+  let value = d[state.selectedIndicator];
+  if (isNaN(value)) value = 0;
+  return value;
+}
+
+function getSortedData(data) {
+  let sorted;
+
+  if (state.selectedIndicator === 'country') {
+    sorted = _.orderBy(data, 'name');
+  } else {
+    sorted = _.orderBy(data, sortAccessor, 'desc')
+  }
+
+  return sorted;
+}
+
+function isVisible(d) {
+  return state.selectedIndicator === 'country' || d[state.selectedIndicator] > 0;
+}
+
 function getTruncatedLabel(text) {
   return text.length <= 10 ? text : text.slice(0, 10) + '...';
 }
@@ -13,14 +35,21 @@ function layout(data) {
       .domain([0, 100])
       .range([0, maxRadius]);
 
-  let layoutData = data.map(function(d, i) {
+  let sortedData = getSortedData(data);
+
+  let layoutData = sortedData.map(function(d, i) {
     let item = {};
+
+    item.id = d.id;
 
     let column = i % config.numColumns;
     let row = Math.floor(i / config.numColumns);
 
     item.x = column * cellWidth + 0.5 * cellWidth;
     item.y = row * cellHeight + 0.5 * cellHeight;
+
+    item.visible = isVisible(d);
+
     item.renewableRadius = radiusScale(d.renewable);
     item.oilgascoalRadius = radiusScale(d.oilgascoal);
     item.hydroelectricRadius = radiusScale(d.hydroelectric);
