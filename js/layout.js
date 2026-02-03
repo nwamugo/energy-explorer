@@ -24,12 +24,18 @@ function getTruncatedLabel(text) {
   return text.length <= 10 ? text : text.slice(0, 10) + '...';
 }
 
+function getMaxRadius() {
+  let cellWidth = config.width / config.numColumns;
+  let maxRadius = 0.35 * cellWidth;
+  return maxRadius;
+}
+
 function layout(data) {
   let labelHeight = 20;
   let cellWidth = config.width / config.numColumns;
   let cellHeight = cellWidth + labelHeight;
 
-  let maxRadius = 0.35 * cellWidth;
+  let maxRadius = getMaxRadius();
 
   let radiusScale = d3.scaleSqrt()
       .domain([0, 100])
